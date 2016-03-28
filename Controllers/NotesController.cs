@@ -7,7 +7,7 @@ using Microsoft.AspNet.Mvc;
 namespace notes_manager.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class NotesController : Controller
     {
         // GET: api/values
         [HttpGet]

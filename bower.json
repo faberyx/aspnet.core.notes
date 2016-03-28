@@ -1,0 +1,26 @@
+{
+  "name": "ASP.NET",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.3.6",
+    "angular": "1.5.3",
+    "angular-route": "1.5.3",
+    "angular-animate": "*",
+    "angular-ui-bootstrap-complete": "*"
+  },
+  "authors": [
+    "faberyx <fabrizio.catitti@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

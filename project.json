@@ -8,6 +8,9 @@
   },
 
   "dependencies": {
+    "EntityFramework.Commands": "7.0.0-rc1-final",
+    "EntityFramework.Sqlite": "7.0.0-rc1-final",
+    "EntityFramework.Sqlite.Design": "7.0.0-rc1-final",
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
@@ -18,8 +21,9 @@
     "Microsoft.Extensions.Logging.Debug" : "1.0.0-rc1-final"
   },
 
-  "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel"
+"commands": {
+    "web": "Microsoft.AspNet.Server.Kestrel",
+    "ef": "EntityFramework.Commands"
   },
 
   "frameworks": {
@@ -35,5 +39,13 @@
   "publishExclude": [
     "**.user",
     "**.vspscc"
-  ]
+  ],
+  "scripts": {
+    "prepublish": [
+      "npm install",
+      "bower install",
+      "gulp clean",
+      "gulp min"
+    ]
+  }
 }

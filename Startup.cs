@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Data.Entity;
 
 namespace notes_manager
 {
@@ -28,6 +25,10 @@ namespace notes_manager
         {
             // Add framework services.
             services.AddMvc();
+             services.AddEntityFramework()
+                .AddSqlite()
+                .AddDbContext<Models.Context.SQLiteContext>(
+                options => { options.UseSqlite($"Data Source=App_Data/data.db"); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
