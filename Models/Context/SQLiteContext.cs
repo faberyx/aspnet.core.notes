@@ -5,7 +5,7 @@ namespace notes_manager.Models.Context
 {
     public class SQLiteContext : DbContext
     {
-        public DbSet<Note> Note { get; set; }
+        public DbSet<Note> Notes { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
