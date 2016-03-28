@@ -1,4 +1,5 @@
 using Microsoft.AspNet.Mvc;
+using Microsoft.Extensions.Logging;
 using notes_manager.Models;
 using notes_manager.Models.Entities;
 using notes_manager.Models.Repositories;
@@ -10,14 +11,16 @@ namespace notes_manager.Controllers
     {
         
          private IRepository<Note> _repository;
+         private ILogger _logger;
 
         /// <summary>
         /// Contructor injection of the repository trough Unity
         /// </summary>
         /// <param name="repository">The repository to inject</param>
-        public NotesController(IRepository<Note> repository)
+        public NotesController(IRepository<Note> repository, ILogger<NotesController> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
         
         /// <summary>
@@ -44,7 +47,8 @@ namespace notes_manager.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Note note)
         {
-              if (note == null)
+            _logger.LogInformation(note.Description);
+            if (note == null)
                 return HttpNotFound(); 
 
             if (!ModelState.IsValid)
@@ -52,7 +56,7 @@ namespace notes_manager.Controllers
 
             _repository.Add(note);
             
-            return CreatedAtAction("default",note);
+            return CreatedAtAction("Get",note);
 
         }
 
