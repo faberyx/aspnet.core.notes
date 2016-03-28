@@ -3,14 +3,14 @@ ASP.NET Core demo notes app
 
 Demo app of a web rest service in ASP.Net core and AngularJS
 
-##Web API 
+####Web API 
 ASP.NET Core
 
-###Database
+####Database
 
 SQLite EF7
 
-###Frontend
+####Frontend
 
 - Bootstrap
 - AngularJS
