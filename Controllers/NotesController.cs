@@ -1,28 +1,59 @@
 using Microsoft.AspNet.Mvc;
+using notes_manager.Models;
+using notes_manager.Models.Entities;
+using notes_manager.Models.Repositories;
 
 namespace notes_manager.Controllers
 {
     [Route("api/[controller]")]
     public class NotesController : Controller
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        
+         private IRepository<Note> _repository;
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// <summary>
+        /// Contructor injection of the repository trough Unity
+        /// </summary>
+        /// <param name="repository">The repository to inject</param>
+        public NotesController(IRepository<Note> repository)
         {
-            return "value";
+            _repository = repository;
         }
+        
+        /// <summary>
+        /// GET Call to retrieve paginated and sorted notes
+        /// </summary>
+        /// <param name="pagingData">
+        /// Object containg all information about pagination and sort
+        /// </param>
+        /// <returns>
+        /// List of paginated notes and pagination and sort information
+        /// </returns>
+        [HttpGet]
+        public IActionResult Get(ResultPage<Note> pagingData)
+        {
+              if (pagingData == null)
+                return HttpBadRequest();
+
+            return Ok(_repository.GetPage(pagingData));
+
+        }
+ 
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Note note)
         {
+              if (note == null)
+                return HttpNotFound(); 
+
+            if (!ModelState.IsValid)
+                return HttpBadRequest(ModelState);
+
+            _repository.Add(note);
+            
+            return CreatedAtAction("default",note);
+
         }
 
         // PUT api/values/5

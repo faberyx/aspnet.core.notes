@@ -1,6 +1,6 @@
 using System.Collections.Generic;
  
-namespace ParallelsNotes.Models
+namespace notes_manager.Models
 {
     /// <summary>
     /// Pagination class used to pass and retrieve all pagination and sort information

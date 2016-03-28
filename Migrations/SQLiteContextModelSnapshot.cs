@@ -1,8 +1,6 @@
 using System;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
-using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Migrations;
 using notes_manager.Models.Context;
 
 namespace notes_manager.Migrations
