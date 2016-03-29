@@ -50,11 +50,11 @@ gulp.task("min", ["min:js", "min:css"]);
 
 gulp.task("copy", ["clean"], function () {
     var bower = {
-        "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
+        "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot,woff2}",
         "angular": "angular/angular.min*.{js,map}",
         "angular-route": "angular-route/angular-route.min*.{js,map}",
         "angular-animate": "angular-animate/angular-animate.min*.{js,map}",
-        "angular-ui-bootstrap-complete": "angular-ui-bootstrap-complete/*min.{js,map,html}",
+        "angular-ui-bootstrap-complete": "angular-ui-bootstrap-complete/ui-bootstrap.min.js",
        
     }
  

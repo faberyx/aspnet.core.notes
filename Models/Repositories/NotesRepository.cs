@@ -48,7 +48,7 @@ namespace notes_manager.Models.Repositories
 
             //retrieve the notes
             var notes = db.Notes.OrderBy(u=>u.Date).Skip(skipCount).Take(pagingData.PageSize);
-//pagingData.SortBy + (pagingData.SortDirection ? " ASC" : " DESC")
+                        //pagingData.SortBy + (pagingData.SortDirection ? " ASC" : " DESC")
 
             return new ResultPage<Note>
             {
@@ -70,6 +70,44 @@ namespace notes_manager.Models.Repositories
 
             insertData.Date = DateTime.Now;
             db.Notes.Add(insertData);
+            db.SaveChanges();
+        }
+        
+        /// <summary>
+        /// Edit an existing note
+        /// </summary>
+        /// <param name="updateData">
+        /// Note object to update
+        /// </param>
+        public void Edit(Note updateData)
+        {
+
+            insertData.Date = DateTime.Now;
+            db.Notes.Add(insertData);
+            db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Get a note by ID
+        /// </summary>
+        /// <param name="id">
+        /// Id of the Note  to retrieve
+        /// </param>
+
+        public Note GetById(int id)
+        { 
+            return db.Notes.FirstOrDefault(x=>x.Id.Equals(id));
+        }
+
+        /// <summary>
+        /// Delete an existing note
+        /// </summary>
+        /// <param name="insertData">
+        /// Note object to delete
+        /// </param>
+        public void Delete(Note note)
+        {
+            db.Notes.Remove(note);
             db.SaveChanges();
         }
 

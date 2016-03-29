@@ -8,6 +8,10 @@ namespace notes_manager.Models.Repositories
     public interface IRepository<T> where T : class
     {
         ResultPage<T> GetPage(ResultPage<T> pagingData);
-        void Add(T insertData); 
+        T GetById(int id);
+        void Add(T insertData);        
+        T Edit(T editData); 
+        void Delete(T deleteData);
+
     }
 }
