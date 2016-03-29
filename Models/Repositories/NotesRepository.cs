@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.Data.Entity;
 using notes_manager.Models.Context;
 using notes_manager.Models.Entities;
 
@@ -82,8 +83,7 @@ namespace notes_manager.Models.Repositories
         public void Edit(Note updateData)
         {
 
-            insertData.Date = DateTime.Now;
-            db.Notes.Add(insertData);
+            db.Entry(updateData).State = EntityState.Modified;
             db.SaveChanges();
         }
 
@@ -132,5 +132,7 @@ namespace notes_manager.Models.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+       
     }
 }

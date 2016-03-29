@@ -18,6 +18,16 @@ app.factory('NotesService', ['$http',
         service.PostNotes = function (formdata) {
             return $http.post(baseUrl + 'api/notes', formdata);
         };
+        
+         //Call to REST service to update an existing note
+        service.PutNotes = function (formdata) {
+            return $http.put(baseUrl + 'api/notes', formdata);
+        };
+        
+         //Call to REST service to delete an existing note
+        service.DeleteNotes = function (id) {
+            return $http.delete(baseUrl + 'api/notes/' + id);
+        };
 
         return service;
     }])
@@ -83,7 +93,7 @@ app.controller('NotesController',
 
         // create a blank object to hold the create note form information
         $scope.formData = {};
-        $scope.editor = { add: false };
+        $scope.editor = { add: false, edit:false };
 
         //show form to add new note
         $scope.addnew = function () {
@@ -112,6 +122,40 @@ app.controller('NotesController',
                 $scope.errortype = "alert-danger";
                 $scope.spinner = "";
             });
+        };
+
+        //delete a row by id
+        $scope.delete = function (id) {
+            $scope.editor.add = false;
+            $scope.editor.edit = false;
+            NotesService.DeleteNotes(id)
+              .success(function (data) {
+                  $scope.errormessage = "Note deleted succesfully";
+                  $scope.errortype = "alert-success";
+                  $scope.formData = {};
+                  loadNotes();
+              }).
+              error(function (data) {
+                  $scope.errormessage = $scope.errormessage = data == null ? "Impossible to reach the server" : data.ModelState["note.Description"] != undefined ? data.ModelState["note.Description"][0] : data.Message != undefined ? data.Message : "API Error";
+                  $scope.errortype = "alert-danger";
+              });
+        };
+        
+          //delete a row by id
+        $scope.edit = function (id) {
+            $scope.editor.add = false;
+            $scope.editor.edit = true;
+            NotesService.DeleteNotes(id)
+              .success(function (data) {
+                  $scope.errormessage = "Note updated succesfully";
+                  $scope.errortype = "alert-success";
+                  $scope.formData = {};
+                  loadNotes();
+              }).
+              error(function (data) {
+                  $scope.errormessage = $scope.errormessage = data == null ? "Impossible to reach the server" : data.ModelState["note.Description"] != undefined ? data.ModelState["note.Description"][0] : data.Message != undefined ? data.Message : "API Error";
+                  $scope.errortype = "alert-danger";
+              });
         };
 
     }]);

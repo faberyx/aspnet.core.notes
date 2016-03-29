@@ -10,7 +10,7 @@ namespace notes_manager.Models.Repositories
         ResultPage<T> GetPage(ResultPage<T> pagingData);
         T GetById(int id);
         void Add(T insertData);        
-        T Edit(T editData); 
+        void Edit(T editData); 
         void Delete(T deleteData);
 
     }
