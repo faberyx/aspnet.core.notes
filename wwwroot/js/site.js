@@ -20,8 +20,8 @@ app.factory('NotesService', ['$http',
         };
         
          //Call to REST service to update an existing note
-        service.PutNotes = function (formdata) {
-            return $http.put(baseUrl + 'api/notes', formdata);
+        service.PutNotes = function (id,formdata) {
+            return $http.put(baseUrl + 'api/notes/' + id, formdata);
         };
         
          //Call to REST service to delete an existing note
@@ -99,6 +99,13 @@ app.controller('NotesController',
         $scope.addnew = function () {
             $scope.formData = {};
             $scope.editor.add = true;
+            $scope.editor.edit = false;
+        };
+         //show form to edit note
+        $scope.edit = function (note) {
+            $scope.formData = note;
+            $scope.editor.add = false;
+            $scope.editor.edit = true;
            
         };
 
@@ -125,7 +132,7 @@ app.controller('NotesController',
         };
 
         //delete a row by id
-        $scope.delete = function (id) {
+        $scope.deleteNote = function (id) {
             $scope.editor.add = false;
             $scope.editor.edit = false;
             NotesService.DeleteNotes(id)
@@ -141,11 +148,12 @@ app.controller('NotesController',
               });
         };
         
-          //delete a row by id
-        $scope.edit = function (id) {
-            $scope.editor.add = false;
+          //
+        $scope.processEditForm = function () {
+            $scope.spinner = "spinner";
+            scope.editor.add = false;
             $scope.editor.edit = true;
-            NotesService.DeleteNotes(id)
+            NotesService.PutNotes($scope.formData.Id,$scope.formData)
               .success(function (data) {
                   $scope.errormessage = "Note updated succesfully";
                   $scope.errortype = "alert-success";
@@ -153,6 +161,7 @@ app.controller('NotesController',
                   loadNotes();
               }).
               error(function (data) {
+                  $scope.spinner = "";
                   $scope.errormessage = $scope.errormessage = data == null ? "Impossible to reach the server" : data.ModelState["note.Description"] != undefined ? data.ModelState["note.Description"][0] : data.Message != undefined ? data.Message : "API Error";
                   $scope.errortype = "alert-danger";
               });

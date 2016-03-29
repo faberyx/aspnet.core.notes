@@ -62,14 +62,32 @@ namespace notes_manager.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Note note)
         {
+             if (note == null)
+                return HttpNotFound(); 
+            
+            if(id != note.Id)
+                return HttpNotFound(); 
+                
+            _repository.Edit(note);
+            
+            return Ok(note);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            Note note = _repository.GetById(id);
+            
+            if (note == null)
+                return HttpNotFound();
+
+            _repository.Delete(note);
+
+            return Ok(note);
         }
+
     }
 }
