@@ -1,16 +1,14 @@
-# aspnet.core.notes
-ASP.NET Core demo notes app
+# ASP.Net Core Notes
 
-Demo app of a web rest service in ASP.Net core and AngularJS
+ASP.Net Core 1.0 Notes Dempo Application based on rest services and AngularJS frontend
 
-####Web API 
-ASP.NET Core
-
-####Database
-
-SQLite EF7
-
-####Frontend
-
-- Bootstrap
+**Built on:**
+- ASP.Net Core 1.0
+- SQLite Entity Framework 7.0
 - AngularJS
+- Bottrstrap 3
+
+Development version: 0.0 
+---
+
+
